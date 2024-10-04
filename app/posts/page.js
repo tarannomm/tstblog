@@ -18,8 +18,8 @@ export default function PostsPage() {
   if (error) return <p>Error fetching posts</p>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl m-4 mb-10 text-teal-800">مقالات منتشر شده اخیر</h1>
+    <div className=" mx-auto p-4">
+      <h1 className="text-2xl m-4 mb-10 text-teal-800">مقالات منتشر شده اخیر</h1>
       <div className="mx-[20px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data?.map((post) => (
           <Link href={`/posts/${post.id}`} key={post.id}>
@@ -44,7 +44,7 @@ export default function PostsPage() {
               </Card>
               <h4 className="text-teal-800 font-medium text-xl mt-2">{post.title.rendered}</h4>
               <p
-                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content.rendered) }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt.rendered) }}
                 className="text-tiny max-h-[3.6em] overflow-hidden leading-[1.8em]"
               />
             </div>

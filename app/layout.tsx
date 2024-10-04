@@ -6,12 +6,7 @@ import ToastProvider from "@/utils/toastProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const iranSans = localFont({
-  src: './fonts/IRANSans.ttf',
-  variable: '--font-iran-sans',
-  weight: '400',
-  style: 'normal',
-});
+ 
 export const metadata: Metadata = {
   title: "blog test",
   description: "blog text project-tAzimi",
@@ -23,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl" className={iranSans.variable}>
+    <html lang="fa" dir="rtl">
       <body
       >
         <ReactQueryProvider>

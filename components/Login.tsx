@@ -49,7 +49,7 @@ const Login: React.FC = () => {
     {id:2,label:"رمز عبور" , type:"password"},
   ]
   return (
-    <div className='flex flex-col-reverse sm:flex-row bg-white w-[90%] max-w-[600px] rounded-xl overflow-hidden  shadow-custom'>
+    <div className='flex flex-col-reverse sm:flex-row bg-white w-[90%] max-w-[600px] rounded-xl overflow-hidden'>
     <form onSubmit={LoginHandler} className="flex flex-col w-[100%] sm:w-[60%]  p-10 ">
       <h1 className='text-teal-600 text-[18px] font-bold mb-10 mx-auto'>ورود به سامانه </h1>
     {inputs.map((item) => (

@@ -25,3 +25,14 @@ body {
     text-wrap: balance;
   }
 }
+@font-face {
+  font-family: 'iran';
+  src: url(./fonts/IRANSans.ttf)
+  format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+body{
+  direction: rtl;
+  font-family: 'iran',sans-serif !important;
+}
