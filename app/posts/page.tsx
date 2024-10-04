@@ -26,6 +26,14 @@ interface Post {
   content: {
     rendered: string;
   };
+  excerpt?: {
+    rendered: string;
+  };
+  author?: {
+    id: number;
+    name: string;
+  };
+  categories?: number[];
 }
 
 export default function PostsPage() {
@@ -37,13 +45,12 @@ export default function PostsPage() {
 
   return (
     <>
-  <Head>
-  <title>مقاله های صنعت و تولید</title>
-  <meta name="description" content="لیستی از مقالات اخیر درباره صنعت و تولید که به موضوعات مرتبط می‌پردازد." />
-  <meta name="keywords" content="پست,مقاله,صنعت,تولید,کارخانه,مهندسی,تکنولوژی" />
-  <link rel="canonical" href="https://yourwebsite.com/posts" />
-  </Head>
-
+      <Head>
+        <title>مقاله ها</title>
+        <meta name="description" content="لیست مقالات منتشر شده اخیر" />
+        <meta name="keywords" content="پست,مقاله,صنعت,تولید" />
+        <link rel="canonical" href="https://yourwebsite.com/posts" />
+      </Head>
       <div className="max-w-5xl mx-auto p-4 ">
         {isLoading ? (
           <div className="mx-[20px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4">
@@ -71,7 +78,7 @@ export default function PostsPage() {
         ) : error ? (
           <div className="flex justify-center items-center h-screen">
             <p className="text-red-500 text-xl">
-              Error loading posts
+              Error loading posts:
             </p>
           </div>
         ) : (
@@ -82,7 +89,7 @@ export default function PostsPage() {
                 key={post.id}
                 className={`col-span-12 ${
                   index === 0
-                    ? "lg:col-span-8 md:col-span-2 sm:col-span12"
+                    ? "lg:col-span-8 md:col-span-2 sm:col-span-12"
                     : index === data.length - 1
                     ? "lg:col-span-12 md:col-span-3 sm:col-span-12"
                     : "lg:col-span-4 md:col-span-1 sm:col-span-12"
@@ -114,9 +121,14 @@ export default function PostsPage() {
                     <div
                       className="text-tiny text-white/60 whitespace-nowrap overflow-hidden text-ellipsis"
                       dangerouslySetInnerHTML={{
-                        __html: post.content.rendered,
+                        __html: post.excerpt?.rendered || post.content.rendered,
                       }}
                     />
+                    {post.author && (
+                      <span className="text-tiny text-white/60">
+                        {post.author.name}
+                      </span>
+                    )}
                     <Button
                       onClick={() => router.push(`/posts/${post.id}`)}
                       radius="full"

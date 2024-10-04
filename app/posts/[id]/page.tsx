@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Chip, Skeleton } from "@nextui-org/react";
 import Link from "next/link";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 
 interface Category {
   id: number;
@@ -18,9 +19,9 @@ interface PostData {
   title: { rendered: string };
   date: string;
   content: { rendered: string };
-  categories: Category[];
-  status: string;
-  featured_media_object: {
+  categories?: Category[];
+  status?: string;
+  featured_media_object?: {
     source_url: string;
   };
 }
@@ -31,6 +32,7 @@ export default function PostDetailsPage({
   params: { id: string };
 }) {
   const { id } = params;
+  const router = useRouter();
 
   const { data, isLoading, error } = useQuery<PostData, Error>({
     queryKey: ["post", id],
@@ -38,21 +40,19 @@ export default function PostDetailsPage({
   });
 
   const formattedDate = data?.date 
-  ? new Date(data.date as string).toLocaleDateString("fa", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    })
-  : "";
-
-
+    ? new Date(data.date).toLocaleDateString("fa", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "26 اردیبهشت 1403";
   return (
     <div className="min-h-[80vh]  py-12 px-4 sm:px-6 lg:px-8">
       <Head>
-        <title>{data?.title.rendered} - مقالات</title>
+        <title>{data?.title?.rendered} - مقالات</title>
         <meta
           name="description"
-          content={data?.content.rendered.substring(0, 150)}
+          content={data?.content?.rendered.substring(0, 150)}
         />
         <link rel="canonical" href={`https://example.com/posts/${id}`} />
       </Head>
@@ -69,20 +69,20 @@ export default function PostDetailsPage({
           </div>
         </div>
       ) : error ? (
-        <div className="flex justify-center items-center h-screen">
+        <div className="min-h-[69vh] flex justify-center items-center h-screen">
           <p className="text-red-500 text-xl">
             Error loading post details: {error.message}
           </p>
         </div>
       ) : (
-        <div className="min-h-[69vh] flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-[69vh] flex justify-center items-center  py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="bg-white shadow-xl rounded-lg overflow-hidden">
               <div className="md:flex">
                 <div className="md:flex-shrink-0">
                   <Image
                     src={data?.featured_media_object?.source_url || ""}
-                    alt={`Image for post titled "${data?.title.rendered}"`}
+                    alt={`Image for post titled "${data?.title?.rendered}"`}
                     width={500}
                     height={500}
                     priority
@@ -94,7 +94,7 @@ export default function PostDetailsPage({
                     {formattedDate}
                   </div>
                   <h1 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    {data?.title.rendered}
+                    {data?.title?.rendered}
                   </h1>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {data?.categories?.map((cat) => (
@@ -109,7 +109,7 @@ export default function PostDetailsPage({
                   <div
                     className="mt-6 prose prose-lg text-gray-500 mx-auto text-justify"
                     dangerouslySetInnerHTML={{
-                      __html: data?.content.rendered || '',
+                      __html: data?.content?.rendered || <p>kk</p>,
                     }}
                   />
                   <div className="mt-8">

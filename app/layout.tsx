@@ -4,8 +4,9 @@ import "./globals.css";
 import ToastProvider from "@/utils/toastProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getCookie } from "cookies-next";
 export const metadata: Metadata = {
-  title:"مقاله ها",
+  title: "مقاله ها",
   description: "blog text project-tAzimi",
 };
 
@@ -16,16 +17,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body
-      >
+      <body>
         <ReactQueryProvider>
-        <ToastProvider>
-           <Header />
-          {children}
-        <Footer />
-        </ToastProvider>
+          <ToastProvider>
+            <Header />
+            {children}
+            <Footer />
+          </ToastProvider>
         </ReactQueryProvider>
-       
       </body>
     </html>
   );

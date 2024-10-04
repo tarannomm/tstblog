@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import data from "../../data/blog.json";
 
- 
 export async function GET() {
   const token = cookies().get("token");
 
@@ -11,7 +10,10 @@ export async function GET() {
   }
 
   try {
-    return NextResponse.json(data);
+    const response = NextResponse.json(data);
+    response.headers.set("Cache-Control", "public, max-age=3600");
+    response.headers.set("Content-Type", "application/json");
+    return response;
   } catch (error) {
     return NextResponse.json(
       { message: "Error loading data" },

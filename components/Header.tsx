@@ -10,25 +10,36 @@ import {
   Avatar,
 } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
-import { deleteCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
+import { toast } from "react-toastify";
 
 const Header: React.FC = () => {
-  const pathname=usePathname();
+  const pathname = usePathname();
   const router = useRouter();
-  const logoutHandler=()=>{
-    deleteCookie('token');
-    deleteCookie("token", { path: "/", domain: window.location.hostname });
-    router.replace("/login");
-    
-  }
-  if(pathname==="/login"){
-    return null
-  }
-  else{
+
+  const logoutHandler = async () => {
+    const response = await fetch("/Api/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      toast.success("شما با موفقیت خارج شدید");
+      router.push("/login");
+    } else {
+      toast.error("خطا در خروج");
+    }
+  };
+
   return (
-    <Navbar className=" border-b-1 py-2">
+    <Navbar className="border-b-1 py-2">
       <NavbarBrand>
-        <p className="font-bold text-inherit text-[20px]">خانه</p>
+        <p
+          className="font-bold text-inherit text-[20px] cursor-pointer"
+          onClick={() => router.replace("/posts")}
+        >
+          وبلاگ
+        </p>
       </NavbarBrand>
       <NavbarContent as="div" justify="end">
         <Dropdown placement="bottom-end">
@@ -55,7 +66,7 @@ const Header: React.FC = () => {
         </Dropdown>
       </NavbarContent>
     </Navbar>
-  );}
+  );
 };
 
 export default Header;
