@@ -38,12 +38,13 @@ export default function PostDetailsPage({
   });
 
   const formattedDate = data?.date 
-    ? new Date(data.date).toLocaleDateString("fa", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      })
-    : "";
+  ? new Date(data.date as string).toLocaleDateString("fa", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    })
+  : "";
+
 
   return (
     <div className="min-h-[80vh]  py-12 px-4 sm:px-6 lg:px-8">
