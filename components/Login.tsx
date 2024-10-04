@@ -19,21 +19,21 @@ const Login: React.FC = () => {
     password:"",
     showPass:false
   }); 
-  const [errors, setErrors] = useState({
-      username: false,
-      password: false
-    });
+  // const [errors, setErrors] = useState({
+  //     username: false,
+  //     password: false
+  //   });
 
   const router = useRouter();
   const  LoginHandler = async (e: FormEvent) => {
     e.preventDefault();
-    setErrors({ username: false, password: false });
+    // setErrors({ username: false, password: false });
     if (!loginData.username || !loginData.password) {
       toast.error("جهت ورود، وارد کردن اطلاعات خواسته شده الزامی میباشد !");
-      setErrors({
-        username: !loginData.username,
-        password: !loginData.password
-      });
+      // setErrors({
+      //   username: !loginData.username,
+      //   password: !loginData.password
+      // });
       return;
     }
     try{

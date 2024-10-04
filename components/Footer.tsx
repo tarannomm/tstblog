@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-    </footer>
+  </footer>
   
    
   );

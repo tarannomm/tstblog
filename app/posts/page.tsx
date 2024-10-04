@@ -37,18 +37,13 @@ export default function PostsPage() {
 
   return (
     <>
-   <Head>
-        <title>مقاله ها</title>
-        <meta
-          name="description"
-          content="لیست مقالات منتشر شده اخیر"
-        />
-        <meta
-          name="keywords"
-          content="پست,مقاله,صنعت,تولید"
-        />
-        <link rel="canonical" href="https://yourwebsite.com/posts" />
-      </Head>
+  <Head>
+  <title>مقاله های صنعت و تولید</title>
+  <meta name="description" content="لیستی از مقالات اخیر درباره صنعت و تولید که به موضوعات مرتبط می‌پردازد." />
+  <meta name="keywords" content="پست,مقاله,صنعت,تولید,کارخانه,مهندسی,تکنولوژی" />
+  <link rel="canonical" href="https://yourwebsite.com/posts" />
+  </Head>
+
       <div className="max-w-5xl mx-auto p-4 ">
         {isLoading ? (
           <div className="mx-[20px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4">

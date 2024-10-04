@@ -16,11 +16,9 @@ const Header: React.FC = () => {
   const pathname=usePathname();
   const router = useRouter();
   const logoutHandler=()=>{
-    deleteCookie("token", { path: "/posts", domain: window.location.hostname });
-    deleteCookie("token", { path: "/posts", domain: window.location.hostname + "/?id" });
+    deleteCookie('token');
     deleteCookie("token", { path: "/", domain: window.location.hostname });
-    
-      router.replace("/login");
+    router.replace("/login");
     
   }
   if(pathname==="/login"){
