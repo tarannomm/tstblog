@@ -45,7 +45,11 @@ export default function PostDetailsPage({
         day: "numeric",
         year: "numeric",
       })
-    : "26 اردیبهشت 1403";
+    :  new Date("2024-05-15").toLocaleDateString("fa", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
   return (
     <div className="min-h-[80vh]  py-12 px-4 sm:px-6 lg:px-8">
       <Head>
