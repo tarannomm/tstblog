@@ -43,6 +43,16 @@ export default function PostsPage() {
     queryFn: fetchPosts,
   });
 
+  if (error) {
+    console.log(error);
+    return
+    // if (error.message === "Unauthorized") {
+    //   // Handle unauthorized access, e.g., redirect to login or show a message
+    //   return <div>You are not authorized to view this content. Please log in.</div>;
+    // }
+    // return <div>Error loading posts: {error.message}</div>; // Handle other errors
+  }
+
   return (
     <>
       <Head>

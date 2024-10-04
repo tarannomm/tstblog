@@ -10,7 +10,7 @@ const LoginPage: React.FC = () => {
         <meta name="keywords" content="پنل ,ورود,پست,مقاله,صنعت,تولید" />
         <link rel="canonical" href="https://yourwebsite.com/posts" />
       </Head>
-      <div className="flex justify-center items-center h-[80vh]">
+      <div className="flex justify-center items-center h-[100vh]">
         <Login />
       </div>
     </>

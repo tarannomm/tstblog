@@ -1,11 +1,9 @@
 "use client";
-import { NextUIProvider } from "@nextui-org/react";
-import PostsPage from "./posts/page";
 
+import { redirect } from "next/navigation";
+
+ 
+ 
 export default function Home() {
-  return (
-    <NextUIProvider>
-      <PostsPage />
-    </NextUIProvider>
-  );
+  redirect('/login')
 }

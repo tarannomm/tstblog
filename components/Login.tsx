@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa";
+import { useMutation } from "react-query";
 
 interface InputItem {
   id: number;
@@ -25,6 +26,27 @@ const Login: React.FC = () => {
   });
 
   const router = useRouter();
+ const mutation = useMutation({
+    mutationFn: async () => {
+      const res = await axios.post("/Api/login", {
+        username: loginData.username,
+        password: loginData.password,
+      });
+      return res.data; // Return the data from the response
+    },
+    onSuccess: (data) => {
+      toast.success(data.message);
+      router.replace("/posts");
+    },
+    onError: (error: any) => {
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("مشکلی به وجود آمده است.");
+      }
+    }
+  });
+
   const LoginHandler = async (e: FormEvent) => {
     e.preventDefault();
     setErrors({ username: false, password: false });
@@ -36,24 +58,7 @@ const Login: React.FC = () => {
       });
       return;
     }
-    try {
-      const res = await axios.post("/Api/login", {
-        username: loginData.username,
-        password: loginData.password,
-      });
-      if (res.status === 200) {
-        toast.success(res.data.message);
-        router.replace("/posts");
-      } else {
-        toast.error(res.data.message);
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error("مشکلی به وجود آمده است.");
-      }
-    }
+    mutation.mutate();
   };
   const inputs: InputItem[] = [
     { id: 1, label: "نام کاربری", type: "text" },

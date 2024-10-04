@@ -1,7 +1,8 @@
 export const fetchPosts = async () => {
   const response = await fetch("/Api/posts");
   if (!response.ok) {
-    throw new Error("Failed to fetch posts");
+    const error = await response.json(); 
+    throw new Error(response.status === 401 ? "Unauthorized" : error.message);
   }
   return response.json();
 };
@@ -9,7 +10,8 @@ export const fetchPosts = async () => {
 export const fetchPostDetails = async (id) => {
   const response = await fetch(`/Api/post/${id}`);
   if (!response.ok) {
-    throw new Error("Failed to fetch post details");
+    const error = await response.json(); 
+    throw new Error(response.status === 401 ? "Unauthorized" : error.message);
   }
   return response.json();
 };

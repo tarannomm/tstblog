@@ -8,7 +8,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 export async function POST(req:Request, res: NextApiResponse) {
   const { username, password } = await req.json();
     if (username === 'azimi' && password === '1234567890') {
-      const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+      const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '3h' });
       const response = NextResponse.json(
         { message: 'ورود شما با موفقیت انجام شد' },
         { status: 200 }
@@ -17,13 +17,11 @@ export async function POST(req:Request, res: NextApiResponse) {
       response.cookies.set('token', token, {
         httpOnly: true,
         path: '/',
-        maxAge: 3600, 
+        maxAge: 3600*3, 
       });
   
       return response;
-      // res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=3600;`);
-      // return NextResponse.json({ message: 'ورود شما با موفقیت انجام شد' }, { status: 200 });
-
+ 
     } else {
       return NextResponse.json({ message: 'اطلاعات وارده نا معتبر میباشد' },{status:401});
     }

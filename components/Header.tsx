@@ -31,6 +31,9 @@ const Header: React.FC = () => {
     }
   };
 
+  if (pathname === "/login") {
+    return null;
+  } else {
   return (
     <Navbar className="border-b-1 py-2">
       <NavbarBrand>
@@ -66,7 +69,7 @@ const Header: React.FC = () => {
         </Dropdown>
       </NavbarContent>
     </Navbar>
-  );
+  )}
 };
 
 export default Header;
