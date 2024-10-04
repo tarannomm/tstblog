@@ -71,7 +71,7 @@ export default function PostsPage() {
         ) : error ? (
           <div className="flex justify-center items-center h-screen">
             <p className="text-red-500 text-xl">
-              Error loading posts: {error.message}
+              Error loading posts
             </p>
           </div>
         ) : (
@@ -102,7 +102,7 @@ export default function PostsPage() {
                     </h4>
                   </CardHeader>
                   <Image
-                    removeWrapper
+                    // removeWrapper
                     width={400}
                     height={400}
                     alt={`Image for post titled "${post.title.rendered}"`}

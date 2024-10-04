@@ -37,11 +37,13 @@ export default function PostDetailsPage({
     queryFn: () => fetchPostDetails(id),
   });
 
-  const formattedDate = new Date(data?.date).toLocaleDateString("fa", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  const formattedDate = data?.date
+  ? new Date(data.date).toLocaleDateString("fa", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    })
+  : "";
 
   return (
     <div className="min-h-[80vh]  py-12 px-4 sm:px-6 lg:px-8">
@@ -78,8 +80,8 @@ export default function PostDetailsPage({
               <div className="md:flex">
                 <div className="md:flex-shrink-0">
                   <Image
-                    src={data?.featured_media_object?.source_url}
-                    alt={`Image for post titled "${data.title.rendered}"`}
+                    src={data?.featured_media_object?.source_url || ""}
+                    alt={`Image for post titled "${data?.title.rendered}"`}
                     width={500}
                     height={500}
                     priority
@@ -106,7 +108,8 @@ export default function PostDetailsPage({
                   <div
                     className="mt-6 prose prose-lg text-gray-500 mx-auto text-justify"
                     dangerouslySetInnerHTML={{
-                      __html: data?.content.rendered,
+                      __html: data?.content.rendered || '',
+                       
                     }}
                   />
                   <div className="mt-8">
