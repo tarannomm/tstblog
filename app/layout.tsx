@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import ReactQueryProvider from "../utils/queryProvider";
 import "./globals.css";
 import ToastProvider from "@/utils/toastProvider";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const iranSans = localFont({
   src: './fonts/IRANSans.ttf',
@@ -26,7 +28,9 @@ export default function RootLayout({
       >
         <ReactQueryProvider>
         <ToastProvider>
+          <Header/>
           {children}
+          <Footer/>
         </ToastProvider>
           
         </ReactQueryProvider>
