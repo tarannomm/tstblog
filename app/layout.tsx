@@ -4,10 +4,8 @@ import "./globals.css";
 import ToastProvider from "@/utils/toastProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
- 
 export const metadata: Metadata = {
-  title: "blog test",
+  title:"مقاله ها",
   description: "blog text project-tAzimi",
 };
 
@@ -22,11 +20,10 @@ export default function RootLayout({
       >
         <ReactQueryProvider>
         <ToastProvider>
-          <Header/>
+           <Header />
           {children}
-          <Footer/>
+        <Footer />
         </ToastProvider>
-          
         </ReactQueryProvider>
        
       </body>

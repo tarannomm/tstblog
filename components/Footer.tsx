@@ -1,8 +1,14 @@
+"use client"
+import { usePathname } from "next/navigation";
 import React from "react";
-
 const Footer: React.FC = () => {
-  return (
-    <footer className=" border-t-1 text-gray-900 py-10 px-4 sm:px-6 lg:px-8">
+  const pathname=usePathname();
+  if(pathname==="/login"){
+    return null
+  }
+  else{
+ return (
+   <footer className=" border-t-1 text-gray-900 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col items-center ">
           <div dir="ltr" className="text-sm ">
@@ -11,7 +17,11 @@ const Footer: React.FC = () => {
         </div>
       </div>
     </footer>
+  
+   
   );
+  }
+ 
 };
 
 export default Footer;

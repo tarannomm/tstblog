@@ -14,19 +14,30 @@ interface InputItem {
   type:string;
 }
 const Login: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const[showPass,setShowPass]=useState(false);
-  const router = useRouter();
+  const [loginData,setLoginData]=useState({
+    username:"",
+    password:"",
+    showPass:false
+  }); 
+  const [errors, setErrors] = useState({
+      username: false,
+      password: false
+    });
 
+  const router = useRouter();
   const  LoginHandler = async (e: FormEvent) => {
     e.preventDefault();
-    if(!username || !password){
-      toast.error("جهت ورود، وارد کردن اطلاعات خواسته شده الزامی میباشد !")
-      return
+    setErrors({ username: false, password: false });
+    if (!loginData.username || !loginData.password) {
+      toast.error("جهت ورود، وارد کردن اطلاعات خواسته شده الزامی میباشد !");
+      setErrors({
+        username: !loginData.username,
+        password: !loginData.password
+      });
+      return;
     }
     try{
-    const res=await axios.post('/Api/login',{username,password})
+    const res=await axios.post('/Api/login',{username:loginData.username,password:loginData.password})
     if(res.status===200){
       toast.success(res.data.message)
       router.replace("/posts");
@@ -45,39 +56,41 @@ const Login: React.FC = () => {
  
   };
   const inputs:InputItem[]=[
-    {id:1,label:"نام کاربری" , type:"text"},
-    {id:2,label:"رمز عبور" , type:"password"},
+    {id:1,label:"نام کاربری" , type:"text" },
+    {id:2,label:"رمز عبور" , type:"password" },
   ]
   return (
-    <div className='flex flex-col-reverse sm:flex-row bg-white w-[90%] max-w-[600px] rounded-xl overflow-hidden'>
+    <div className='flex flex-col-reverse sm:flex-row bg-white w-[90%] max-w-[600px] rounded-xl overflow-hidden border-3 border-[#49516E]'>
     <form onSubmit={LoginHandler} className="flex flex-col w-[100%] sm:w-[60%]  p-10 ">
-      <h1 className='text-teal-600 text-[18px] font-bold mb-10 mx-auto'>ورود به سامانه </h1>
+      <h1 className='text-[#49516E] text-[18px] font-bold mb-10 mx-auto'>ورود به سامانه </h1>
     {inputs.map((item) => (
       <div className='relative'>
         <Input
           key={item.id}
-          type={showPass?"text":item.type}
+          type={loginData.showPass?"text":item.type}
           label={item.label}
           variant="bordered"
           labelPlacement="outside"
-          value={item.id===1?username:password}
-          onChange={(e) =>{item.id==1? setUsername(e.target.value):setPassword(e.target.value)}}
+          value={item.id===1?loginData.username:loginData.password}
+          onChange={(e) =>{item.id==1? setLoginData({...loginData, username:e.target.value}) : setLoginData({...loginData, password:e.target.value})}}
           className='my-6'
+          autoComplete="off"  
            
+          
         />
-        <span onClick={()=>setShowPass(!showPass)} className='absolute top-9 left-5 cursor-pointer'>
-           {item.type==="password" && ( showPass?<FaRegEyeSlash className='text-teal-800' />:<FaRegEye  className='text-teal-800'/>)}
+        <span onClick={()=>setLoginData({...loginData,showPass:!loginData.showPass})} className='absolute top-9 left-5 cursor-pointer'>
+           {item.type==="password" && ( loginData.showPass?<FaRegEyeSlash className='tex-[#49516E]' />:<FaRegEye  className='text-[#49516E]'/>)}
         </span>
        
       
       </div>
       ))}
-      <Button type='submit' radius="full" className="bg-gradient-to-tr from-teal-800 to-teal-200 text-white shadow-lg my-6 font-bold">
+      <Button type='submit' radius="full" className="bg-gradient-to-tr from-[#49516E] to-blue-500 text-white shadow-lg my-6 font-bold">
       ورود
     </Button>
     </form>
     <Image
-        src="/tealback.avif"
+        src="/blueBack.jpg"
         alt="teal background"
         width={800}
         height={500}
