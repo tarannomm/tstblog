@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import ReactQueryProvider from "../utils/queryProvider";
 import "./globals.css";
 import ToastProvider from "@/utils/toastProvider";

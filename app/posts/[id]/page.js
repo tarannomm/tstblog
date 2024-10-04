@@ -4,6 +4,7 @@ import { fetchPostDetails } from "../../../utils/api";
 import Image from 'next/image';
 import DOMPurify from 'dompurify';
 import { Chip } from "@nextui-org/react";
+import Link from "next/link";
 
 export default function PostDetailsPage({ params }) {
   const { id } = params;
@@ -18,7 +19,7 @@ export default function PostDetailsPage({ params }) {
 
   return (
     <div className=" lg:p-20 px-10 h-[90vh] relative ">
-          <div class="absolute left-0 top-[-150px] lg:top-[20px]  w-[55%] max-w-[300px] lg:max-w-none h-[160px]   lg:!w-[480px] lg:h-[90%]  bg-gray-300 rounded-r-full overflow-hidden m-1 p-1 pl-0 ml-0">
+          <div class="absolute left-0 top-[-150px] lg:top-[30px]  w-[55%] max-w-[320px] lg:max-w-none h-[170px]   lg:!w-[480px] lg:h-[85%]  bg-gray-300 rounded-r-full overflow-hidden m-1 p-1 pl-0 ml-0">
         <Image
         src={data.featured_media_object.source_url}
         alt="post image"
@@ -30,7 +31,7 @@ export default function PostDetailsPage({ params }) {
       </div>
     
    
-      <div className="lg:w-[55%] mt-[150px] lg:mt-0  text-justify overflow-y-auto">  
+      <div className="lg:w-[55%] mt-[150px] lg:mt-0 h-full bg-gray-600  text-justify overflow-y-auto">  
        <h1 className="text-[25px] lg:text-[40px] mb-4 text-teal-800 font-bold">{data.title.rendered}</h1>
       <p className="text-gray-400 text-[13px] uppercase font-bold my-4">  تاریخ انتشار  : {new Date(data.date).toLocaleDateString("fa",{
         month:"long",
@@ -43,6 +44,7 @@ export default function PostDetailsPage({ params }) {
        {data.status==="publish" && <Chip color="warning">منتشر شده</Chip>} 
       </div>
       <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(data.content.rendered)}} ></p>
+      <Link className="bg-teal-700 rounded-md text-teal-100 px-4 py-1 mt-[40px]" href="/posts" >بازگشت به صفحه اصلی</Link>
         </div>
     
     </div>
