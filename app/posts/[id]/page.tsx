@@ -37,18 +37,18 @@ export default function PostDetailsPage({
     queryFn: () => fetchPostDetails(id),
   });
 
-  const formattedDate = data?.date
-  ? new Date(data.date).toLocaleDateString("fa", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    })
-  : "";
+  const formattedDate = data?.date 
+    ? new Date(data.date).toLocaleDateString("fa", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "";
 
   return (
     <div className="min-h-[80vh]  py-12 px-4 sm:px-6 lg:px-8">
       <Head>
-        <title>{data?.title.rendered} -مقالات</title>
+        <title>{data?.title.rendered} - مقالات</title>
         <meta
           name="description"
           content={data?.content.rendered.substring(0, 150)}
@@ -74,7 +74,7 @@ export default function PostDetailsPage({
           </p>
         </div>
       ) : (
-        <div className="min-h-[69vh] flex justify-center items-center  py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-[69vh] flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="bg-white shadow-xl rounded-lg overflow-hidden">
               <div className="md:flex">
@@ -109,7 +109,6 @@ export default function PostDetailsPage({
                     className="mt-6 prose prose-lg text-gray-500 mx-auto text-justify"
                     dangerouslySetInnerHTML={{
                       __html: data?.content.rendered || '',
-                       
                     }}
                   />
                   <div className="mt-8">
