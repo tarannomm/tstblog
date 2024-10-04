@@ -2,6 +2,7 @@
 import { useQuery } from "react-query";
 import { fetchPostDetails } from "../../../utils/api";
 import Image from 'next/image';
+import DOMPurify from 'dompurify';
 
 export default function PostDetailsPage({ params }) {
   const { id } = params;
@@ -27,7 +28,13 @@ export default function PostDetailsPage({ params }) {
       /></div>
 
       <h1 className="text-[40px] mb-4 text-white font-bold">{data.title.rendered}</h1>
-      <p>{data.content.rendered}</p>
+      <p className=" text-white/60 uppercase font-bold">  تاریخ انتشار مقاله: {new Date(data.date).toLocaleDateString("fa",{
+              month:"long",
+              day:"numeric",
+              year:"numeric"
+            })}</p>
+      <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(data.content.rendered)}} ></p>
+      <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(data.excerpt.rendered)}} ></p>
     </div>
   );
 }
