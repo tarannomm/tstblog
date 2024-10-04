@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextResponse } from 'next/server';
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: Request) {
      
     const response = NextResponse.json(
         { message: 'شما با موفقیت خارج شدید' },
