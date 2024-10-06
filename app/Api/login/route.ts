@@ -10,15 +10,15 @@ export async function POST(req:Request, res: NextApiResponse) {
     if (username === 'azimi' && password === '1234567890') {
       const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '3h' });
       const response = NextResponse.json(
-        { message: 'ورود شما با موفقیت انجام شد' },
+        { message: 'ورود شما با موفقیت انجام شد' ,token},
         { status: 200 }
       );
   
-      response.cookies.set('token', token, {
-        httpOnly: true,
-        path: '/',
-        maxAge: 3600*3, 
-      });
+      // response.cookies.set('token', token, {
+      //   httpOnly: true,
+      //   path: '/',
+      //   maxAge: 3600*3, 
+      // });
   
       return response;
  

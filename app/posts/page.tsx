@@ -11,8 +11,9 @@ import Link from "next/link";
 import { useQuery } from "react-query";
 import { fetchPosts } from "../../utils/api";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Head from "next/head";
+import { useEffect } from "react";
 
 interface Post {
   id: number;
@@ -38,20 +39,10 @@ interface Post {
 
 export default function PostsPage() {
   const router = useRouter();
-  const { data, isLoading, error } = useQuery<Post[]>({
+  const { data, isLoading, error } = useQuery<Post[],Error>({
     queryKey: ["posts"],
     queryFn: fetchPosts,
   });
-
-  if (error) {
-    console.log(error);
-    return
-    // if (error.message === "Unauthorized") {
-    //   // Handle unauthorized access, e.g., redirect to login or show a message
-    //   return <div>You are not authorized to view this content. Please log in.</div>;
-    // }
-    // return <div>Error loading posts: {error.message}</div>; // Handle other errors
-  }
 
   return (
     <>
@@ -85,13 +76,14 @@ export default function PostsPage() {
               </div>
             ))}
           </div>
-        ) : error ? (
-          <div className="flex justify-center items-center h-screen">
-            <p className="text-red-500 text-xl">
-              Error loading posts:
-            </p>
-          </div>
-        ) : (
+        )  : error?  error.message==="Unauthorized" ?
+        redirect("/login") : (
+       <div className="min-h-[69vh] flex justify-center items-center h-screen">
+         <p className="text-red-500 text-xl">
+           Error loading post details: {error.message}
+         </p>
+       </div>
+     ) : (
           <div className="mx-[20px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4">
             {data?.map((post, index) => (
               <Link

@@ -6,7 +6,8 @@ import Image from "next/image";
 import { Chip, Skeleton } from "@nextui-org/react";
 import Link from "next/link";
 import Head from "next/head";
-import { useRouter } from "next/navigation";
+import {redirect, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface Category {
   id: number;
@@ -50,6 +51,7 @@ export default function PostDetailsPage({
       day: "numeric",
       year: "numeric",
     });
+
   return (
     <div className="min-h-[80vh]  py-12 px-4 sm:px-6 lg:px-8">
       <Head>
@@ -71,8 +73,9 @@ export default function PostDetailsPage({
               <Skeleton className="h-10 w-1/4 rounded-md" />
             </div>
           </div>
-        </div>
-      ) : error ? (
+        </div>)
+         : error?  error.message==="Unauthorized" ?
+         redirect("/login") : (
         <div className="min-h-[69vh] flex justify-center items-center h-screen">
           <p className="text-red-500 text-xl">
             Error loading post details: {error.message}

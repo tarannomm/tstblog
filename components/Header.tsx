@@ -18,17 +18,11 @@ const Header: React.FC = () => {
   const router = useRouter();
 
   const logoutHandler = async () => {
-    const response = await fetch("/Api/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-
-    if (response.ok) {
-      toast.success("شما با موفقیت خارج شدید");
-      router.push("/login");
-    } else {
-      toast.error("خطا در خروج");
-    }
+     toast.warning("خروج شما از حساب کاربری انجام شد.");
+    deleteCookie('token')
+    router.replace("/login")
+   
+    
   };
 
   if (pathname === "/login") {

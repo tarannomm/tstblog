@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa";
 import { useMutation } from "react-query";
+import { setCookie } from "cookies-next";
 
 interface InputItem {
   id: number;
@@ -32,10 +33,14 @@ const Login: React.FC = () => {
         username: loginData.username,
         password: loginData.password,
       });
-      return res.data; // Return the data from the response
+      return res.data;
     },
     onSuccess: (data) => {
       toast.success(data.message);
+      setCookie('token', data.token, {
+        maxAge: 3600 * 3, 
+        path: '/'
+      });
       router.replace("/posts");
     },
     onError: (error: any) => {
